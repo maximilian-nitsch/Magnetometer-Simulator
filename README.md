@@ -1,10 +1,6 @@
 # C++/ROS 2 Magnetometer Simulator
 
-[![License](https://img.shields.io/badge/license-BSD--3-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Build Status](https://gitlab.informatik.uni-bremen.de/%{project_path}/badges/%{default_branch}/pipeline.svg)](https://gitlab.informatik.uni-bremen.de/triple/gnc/sensors/mag-simulator/-/commits/main)
-[![Coverage](https://gitlab.com/your-username/project-name/badges/master/coverage.svg)](https://gitlab.com/your-username/project-name/pipelines)
-
-![](./data/icon.svg){width=35%}
+![](./data/icon.svg)
 
 <!--- protected region package header begins -->
 **Author:**
@@ -67,7 +63,7 @@ To install the `mag_simulator_package`, you need to follow these steps:
     sudo apt-get install libeigen3-dev
     ```
 
-2. **Install ROS 2 Humble**: Make sure you have ROS 2 (Humble) installed. You can follow the official installation instructions provided by ROS 2. Visit [ROS 2 Humble Installation page](https://docs.ros.org/en/humble/Installation.html) for detailed installation instructions tailored to your platform.
+2. **Install ROS 2 Humble**: Ensure you have ROS 2 (Humble) installed. You can follow the official installation instructions provided by ROS 2. Visit [ROS 2 Humble Installation page](https://docs.ros.org/en/humble/Installation.html) for detailed installation instructions tailored to your platform.
 
 3. **Clone the Package**: Clone the package repository to your ROS 2 workspace. If you don't have a ROS 2 workspace yet, you can create one using the following commands:
 
@@ -84,7 +80,7 @@ To install the `mag_simulator_package`, you need to follow these steps:
 
     Replace `<repository_url>` with the URL of your package repository.
 
-4. **Build the Package**: Once the package is cloned, you need to build it using colcon, the default build system for ROS 2. Navigate to your ROS 2 workspace and run the following command:
+4. **Build the Package**: Once the package is cloned, you must build it using colcon, the default build system for ROS 2. Navigate to your ROS 2 workspace and run the following command:
 
     ```bash
     cd /path/to/ros2_workspace
@@ -101,7 +97,7 @@ To install the `mag_simulator_package`, you need to follow these steps:
 
     Replace `/path/to/ros2_workspace` with the actual path to your ROS 2 workspace.
 
-That's it! Your `mag_simulator_package` should now be installed along with its dependencies, and ready to use in your ROS 2 environment.
+That's it! Your `mag_simulator_package` should now be installed along with its dependencies and ready to use in your ROS 2 environment.
 
 ## Usage
 
@@ -111,7 +107,7 @@ That's it! Your `mag_simulator_package` should now be installed along with its d
     ```bash
     ros2 launch mag_simulator_package mag_simulator.launch.py
     ```
-  The MAG simulator prints your settings and now waits for a ground truth odometry message.
+  The MAG simulator prints your settings and waits for a ground truth odometry message.
 
 3. **Provide an odometry publisher** from you vehicle simulation.
   For testing, you can launch the odometry_test_publisher node:
@@ -123,10 +119,10 @@ That's it! Your `mag_simulator_package` should now be installed along with its d
 
 
 **Important Usage Information**:
-- The odometry message needs to be published with at least the MAG data rate/sample time.
-- The message `/mag/diagnostic` will show `WARN` if odometry rate is lower.
+- The odometry message must be published with at least the MAG data rate/sample time.
+- The message `/mag/diagnostic` will show `WARN` if the odometry rate is lower.
 - If no odometry message is published, the message `/mag/diagnostic` will show `STALE`.
-- If everything is correct `/mag/diagnostic` will show `OK`. 
+- If everything is correct, `/mag/diagnostic` will show `OK`. 
 
 ## ROS 2 Nodes
 
@@ -163,31 +159,11 @@ The MAG simulator implementation closely follows the work:
 - J. A. Farrell, F. O. Silva, F. Rahman and J. Wendel, "Inertial Measurement Unit Error Modeling Tutorial: Inertial Navigation System State Estimation with Real-Time Sensor Calibration," in IEEE Control Systems Magazine, vol. 42, no. 6, pp. 40-66, Dec. 2022, [DOI: 10.1109/MCS.2022.3209059](https://doi.org/10.1109/MCS.2022.3209059).
 - J. A. Farrell, "Aided Navigation Systems: GPS and High Rate Sensors," New York, NY, McGraw-Hill, 552 pages, 2008.
 
-## Reports
-
-Coverage Report:
-- https://triple.glpages.informatik.uni-bremen.de/gnc/sensors/mag-simulator/fancy_html_coverage_report/
-
-Dokumentation: (Doxygen Awesome)
-- https://triple.glpages.informatik.uni-bremen.de/gnc/sensors/mag-simulator/doxygen_awesome/html/
-
-Documentation Coverage:
-- https://triple.glpages.informatik.uni-bremen.de/gnc/sensors/mag-simulator/doxygen_awesome/doc-coverage/
-
-Code Climate Report:
-- https://triple.glpages.informatik.uni-bremen.de/gnc/sensors/mag-simulator/gl-code-quality-report.html
-
-
-## Legacy
-
-Documentation (Doxygen Rosdoc Lite)
-- https://triple.glpages.informatik.uni-bremen.de/gnc/sensors/mag-simulator/rosdoc_lite/html/
-
 ## Contributing
 
-If you would like to contribute to the project, see the [CONTRIBUTING](CONTRIBUTING) file for details.
+If you want to contribute to the project, see the [CONTRIBUTING](CONTRIBUTING) file for details.
 
 ## License
 
-This project is licensed under the BSD-3-Clause License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the BSD-3-Clause License. Please look at the [LICENSE](LICENSE) file for details.
 

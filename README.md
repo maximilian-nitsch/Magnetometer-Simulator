@@ -51,6 +51,7 @@ This project depends on the following literature and libraries:
 
 - **Eigen3**: Eigen is a C++ template library for linear algebra: [Eigen website](https://eigen.tuxfamily.org/).
 - **ROS 2 Humble**: ROS 2 is a set of software libraries and tools for building robot applications: [ROS 2 Installation page](https://docs.ros.org/en/humble/Installation.html).
+- **Navigation Utilities Package**: ROS 2 package with common navigation utilities for TRIPLE-GNC: [Navigation Utilities](https://gitlab.informatik.uni-bremen.de/triple/gnc/utilities/navigation-utilities)
 
 
 # Installation

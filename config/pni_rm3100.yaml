@@ -1,0 +1,39 @@
+# @license BSD-3 https://opensource.org/licenses/BSD-3-Clause
+# Copyright (c) 2024, Institute of Automatic Control - RWTH Aachen University
+# Maximilian Nitsch (m.nitsch@irt.rwth-aachen.de)
+# All rights reserved.
+
+mag_simulator:
+  general_settings:
+    sample_time: 0.01 # (s)
+    seed: 42
+    use_constant_seed: false
+
+  model_parameter_settings:
+    N: [0.0107403325174045e-06, 0.0155945417657915e-06, 0.0149346442616531e-06] # (T/s^(1/2))
+    B: [
+        0.00273246827281338e-06,
+        0.00184704594648358e-06,
+        0.0018816647975664e-06,
+      ] # (T/s)
+    K: [8.30181561710663e-11, 5.88363096771479e-11, 7.70561623631383e-11] # (T/^(3/2))
+    correlation_time: [79.6349908634337, 497.649977057122, 85.2398861596715] # (s)
+    soft_iron_distortion: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0] # (T)
+    hard_iron_bias: [0.0, 0.0, 0.0] # (T)
+    measurement_range: [8.0e-04, 8.0e-04, 8.0e-04] # (T)
+    resolution: [13.0e-09, 13.0e-09, 13.0e-09] # (T)
+    sensor_rotation: [0.0, 0.0, 0.0] # RPY Euler angles in ZYX convention (deg)
+
+  model_enable_settings:
+    enable_soft_iron_distortion: false
+    enable_hard_iron_bias: false
+    enable_stochastic_error: true
+    enable_saturation: true
+    enable_quantization: true
+
+  environmental_settings:
+    local_magnetic_field_vector: [
+        17.98356571986e-06,
+        -4.75537810022174e-06,
+        -32.8983169172881e-06,
+      ] # Neumayer Station III (T)

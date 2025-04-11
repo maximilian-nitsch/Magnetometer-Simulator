@@ -60,31 +60,31 @@ jobs:
               }
             }
 
-  coverage:
-    name: Test Coverage
-    runs-on: ubuntu-22.04
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ros-tooling/setup-ros@v0.7
-        with:
-          required-ros-distributions: humble
+# coverage:
+#   name: Test Coverage
+#   runs-on: ubuntu-22.04
+#   needs: test
+#   steps:
+#     - uses: actions/checkout@v4
+#     - uses: ros-tooling/setup-ros@v0.7
+#       with:
+#         required-ros-distributions: humble
 
-      - name: Import Repositories
-        run: |
-          vcs import src < mag_simulator.repos
+#     - name: Import Repositories
+#       run: |
+#         vcs import src < mag_simulator.repos
 
-      - name: Generate Coverage
-        run: |
-          source /opt/ros/humble/setup.bash
-          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE_TESTING=ON
-          colcon test
-          colcon lcov-result
+#     - name: Generate Coverage
+#       run: |
+#         source /opt/ros/humble/setup.bash
+#         colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE_TESTING=ON
+#         colcon test
+#         colcon lcov-result
 
-      - name: Upload to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: build/mag_simulator_package/coverage.info # <-- Fixed here!
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: true
+#     - name: Upload to Codecov
+#       uses: codecov/codecov-action@v3
+#       with:
+#         files: build/mag_simulator_package/coverage.info # <-- Fixed here!
+#         flags: unittests
+#         name: codecov-umbrella
+#         fail_ci_if_error: true

@@ -53,13 +53,17 @@ jobs:
       - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
+
       - name: Install Linters
         run: |
           sudo apt update
-          sudo apt install -y python3-flake8 cpplint
+          sudo apt install -y python3-pip cpplint
+          python3 -m pip install flake8
+
       - name: Run Flake8
         run: |
           flake8 launch/ src/
+
       - name: Run cpplint
         run: |
           find src/ -name '*.cpp' -o -name '*.hpp' | xargs cpplint

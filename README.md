@@ -1,7 +1,12 @@
 # C++/ROS 2 Magnetometer Simulator
 
 ![Build](https://github.com/maximilian-nitsch/Magnetometer-Simulator/actions/workflows/ci.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/maximilian-nitsch/Magnetometer-Simulator/branch/main/graph/badge.svg)](https://codecov.io/gh/maximilian-nitsch/Magnetometer-Simulator)
 ![License](https://img.shields.io/github/license/maximilian-nitsch/Magnetometer-Simulator.svg)
+![Last Commit](https://img.shields.io/github/last-commit/maximilian-nitsch/Magnetometer-Simulator)
+![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue)
+
+
 
 ![](./data/icon.svg)
 

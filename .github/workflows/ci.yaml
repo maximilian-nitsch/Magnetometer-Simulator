@@ -7,30 +7,66 @@ on:
     branches: [main, develop]
 
 jobs:
-  build_and_test:
+  build:
+    name: Build
     runs-on: ubuntu-22.04
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup ROS 2
-        uses: ros-tooling/setup-ros@v0.7
+      - uses: actions/checkout@v4
+      - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
+      - name: Build
+        run: |
+          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug
 
-      - name: Build and Test
-        uses: ros-tooling/action-ros-ci@v0.4
+  test:
+    name: Test
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+      - name: Build Again
+        run: |
+          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug
+      - name: Run Tests
+        run: |
+          colcon test --event-handlers console_direct+
+          colcon test-result --all --verbose
+
+  lint:
+    name: Linting
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+      - uses: ros-tooling/action-ros-lint@v0.1.3
         with:
           package-name: mag_simulator_package
-          target-ros2-distro: humble
-          vcs-repo-file-url: mag_simulator.repos
-          colcon-defaults: |
-            {
-              "build": {
-                "symlink-install": true
-              },
-              "test": {
-                "parallel-workers": 2
-              }
-            }
+          linter: "cpplint, xmllint, uncrustify, flake8"
+
+  coverage:
+    name: Test Coverage
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+      - name: Generate Coverage
+        run: |
+          colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE_TESTING=ON
+          colcon test
+          colcon lcov-result
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ros_ws/build/mag_simulator_package/coverage.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true

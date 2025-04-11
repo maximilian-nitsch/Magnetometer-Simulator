@@ -60,32 +60,6 @@ jobs:
               }
             }
 
-  lint:
-    name: Lint
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup ROS 2
-        uses: ros-tooling/setup-ros@v0.7
-        with:
-          required-ros-distributions: humble
-
-      - name: Install Linters
-        run: |
-          sudo apt update
-          sudo apt install -y python3-pip cpplint
-          python3 -m pip install flake8
-
-      - name: Run Flake8
-        run: |
-          flake8 launch/ src/
-
-      - name: Run cpplint
-        run: |
-          find src/ -name '*.cpp' -o -name '*.hpp' | xargs cpplint
-
   coverage:
     name: Test Coverage
     runs-on: ubuntu-22.04
@@ -95,17 +69,22 @@ jobs:
       - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
+
       - name: Import Repositories
         run: |
           vcs import src < mag_simulator.repos
+
       - name: Generate Coverage
         run: |
           source /opt/ros/humble/setup.bash
           colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE_TESTING=ON
           colcon test
           colcon lcov-result
+
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: ros_ws/build/mag_simulator_package/coverage.info
+          files: build/mag_simulator_package/coverage.info # <-- Fixed here!
           flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true

@@ -5,8 +5,8 @@
 ![License](https://img.shields.io/github/license/maximilian-nitsch/Magnetometer-Simulator.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/maximilian-nitsch/Magnetometer-Simulator)
 ![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue)
-
-
+![Release](https://img.shields.io/github/v/release/maximilian-nitsch/Magnetometer-Simulator)
+![Open Issues](https://img.shields.io/github/issues/maximilian-nitsch/Magnetometer-Simulator)
 
 ![](./data/icon.svg)
 

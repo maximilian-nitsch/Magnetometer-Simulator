@@ -1,5 +1,7 @@
 # C++/ROS 2 Magnetometer Simulator
 
+![Build]([https://github.com/<USER>/<REPO>/actions/workflows/<WORKFLOW>.yml](https://github.com/maximilian-nitsch/Magnetometer-Simulator/actions/workflows/ci.yaml)/badge.svg)
+
 ![](./data/icon.svg)
 
 <!--- protected region package header begins -->

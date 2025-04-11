@@ -8,9 +8,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container:
-      image: ros:humble # ROS 2 Humble Docker Image
+      image: ros:humble
 
     defaults:
       run:
@@ -44,28 +44,31 @@ jobs:
             ros-humble-ament-lint-auto \
             ros-humble-ament-lint-common \
             ros-humble-ament-cmake-cpplint \
-            ros-humble-ament-cmake-cppcheck \
-            cppcheck
+            ros-humble-ament-cmake-cppcheck
 
       - name: Setup ROS 2 Environment and Dependencies
         run: |
           source /opt/ros/humble/setup.bash
-          [ -f /etc/ros/rosdep/sources.list.d/20-default.list ] || sudo rosdep init || true
+          if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
+            sudo rosdep init
+          fi
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
 
-  # Note that we pass each job a different name to distinguish each linter job
   ament_lint_cpp:
     name: ament_${{ matrix.linter }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:humble
+
     strategy:
       fail-fast: false
       matrix:
-        # We exclude cppcheck due to https://github.com/ament/ament_lint/pull/345
         linter: [cpplint, uncrustify, xmllint]
+
     steps:
-      - uses: actions/checkout@v3.3.0
-      - uses: ros-tooling/setup-ros@0.6.1
+      - uses: actions/checkout@v4
+      - uses: ros-tooling/setup-ros@v0.7.0
       - uses: ros-tooling/action-ros-lint@0.1.3
         with:
           linter: ${{ matrix.linter }}

@@ -4,14 +4,13 @@
 # All rights reserved.
 
 import os
-
 import yaml
-from ament_index_python import get_package_share_directory
-from launch_ros.actions import Node
 
+from ament_index_python import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
@@ -20,15 +19,16 @@ def generate_launch_description():
 
     # Declare the path to the config YAML file
     config_file_path = os.path.join(
-        get_package_share_directory("mag_simulator_package"),  # noqa
-        "config",  # noqa
-        "pni_rm3100.yaml",  # noqa
+        get_package_share_directory('mag_simulator_package'),
+        'config',
+        'pni_rm3100.yaml',
     )
 
     # Open the YAML file and load the parameters
-    with open(config_file_path, "r") as file:
+    with open(config_file_path, 'r') as file:
         config = yaml.safe_load(file)
 
+    # Declare launch arguments
     use_sim_time_arg = DeclareLaunchArgument(
         'use_sim_time',
         default_value='false',
@@ -37,23 +37,23 @@ def generate_launch_description():
     ld.add_action(use_sim_time_arg)
 
     odom_topic_arg = DeclareLaunchArgument(
-        "odom_topic",
-        default_value="/auv/odometry",
-        description="Topic name of the ground truth odometry from vehicle",
+        'odom_topic',
+        default_value='/auv/odometry',
+        description='Topic name of the ground truth odometry from vehicle',
     )
-    # Add the launch argument to the launch description
     ld.add_action(odom_topic_arg)
+
     # Create the node
     mag_simulator_package_node = Node(
-        package="mag_simulator_package",
-        namespace="/auv/gnc/navigation_sensors/magnetometer",
-        executable="mag_simulator_package_node",
-        name="mag_simulator_node",
-        output="screen",
+        package='mag_simulator_package',
+        namespace='/auv/gnc/navigation_sensors/magnetometer',
+        executable='mag_simulator_package_node',
+        name='mag_simulator_node',
+        output='screen',
         parameters=[
             config,
-            {"topic_name": LaunchConfiguration("odom_topic")},
-            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+            {'topic_name': LaunchConfiguration('odom_topic')},
+            {'use_sim_time': LaunchConfiguration('use_sim_time')},
         ],
     )
 
